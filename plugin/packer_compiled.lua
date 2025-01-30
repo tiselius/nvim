@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/arontiselius/.cache/nvim/packer_hererocks/2.1.1731601260/share/lua/5.1/?.lua;/Users/arontiselius/.cache/nvim/packer_hererocks/2.1.1731601260/share/lua/5.1/?/init.lua;/Users/arontiselius/.cache/nvim/packer_hererocks/2.1.1731601260/lib/luarocks/rocks-5.1/?.lua;/Users/arontiselius/.cache/nvim/packer_hererocks/2.1.1731601260/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/arontiselius/.cache/nvim/packer_hererocks/2.1.1731601260/lib/lua/5.1/?.so"
+local package_path_str = "/Users/arontiselius/.cache/nvim/packer_hererocks/2.1.1736781742/share/lua/5.1/?.lua;/Users/arontiselius/.cache/nvim/packer_hererocks/2.1.1736781742/share/lua/5.1/?/init.lua;/Users/arontiselius/.cache/nvim/packer_hererocks/2.1.1736781742/lib/luarocks/rocks-5.1/?.lua;/Users/arontiselius/.cache/nvim/packer_hererocks/2.1.1736781742/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/arontiselius/.cache/nvim/packer_hererocks/2.1.1736781742/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -74,6 +74,16 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["AirLatex.vim"] = {
+    loaded = true,
+    path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/AirLatex.vim",
+    url = "https://github.com/dmadisetti/AirLatex.vim"
+  },
+  LuaSnip = {
+    loaded = true,
+    path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/LuaSnip",
+    url = "https://github.com/L3MON4D3/LuaSnip"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -93,6 +103,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
+  },
+  firenvim = {
+    loaded = true,
+    path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/firenvim",
+    url = "https://github.com/glacambre/firenvim"
   },
   harpoon = {
     loaded = true,
@@ -181,10 +196,20 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/vim-vsnip",
     url = "https://github.com/hrsh7th/vim-vsnip"
+  },
+  vimtex = {
+    config = { "\27LJ\2\nó\1\0\0\3\0\n\0\0156\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0'\1\5\0=\1\4\0006\0\0\0009\0\1\0005\1\b\0005\2\a\0=\2\t\1=\1\6\0K\0\1\0\foptions\1\0\1\foptions\0\1\5\0\0\18-shell-escape\21-file-line-error\15-synctex=1\29-interaction=nonstopmode\28vimtex_compiler_latexmk\flatexml\27vimtex_compiler_method\tskim\23vimtex_view_method\6g\bvim\0" },
+    loaded = true,
+    path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/vimtex",
+    url = "https://github.com/lervag/vimtex"
   }
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: vimtex
+time([[Config for vimtex]], true)
+try_loadstring("\27LJ\2\nó\1\0\0\3\0\n\0\0156\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0'\1\5\0=\1\4\0006\0\0\0009\0\1\0005\1\b\0005\2\a\0=\2\t\1=\1\6\0K\0\1\0\foptions\1\0\1\foptions\0\1\5\0\0\18-shell-escape\21-file-line-error\15-synctex=1\29-interaction=nonstopmode\28vimtex_compiler_latexmk\flatexml\27vimtex_compiler_method\tskim\23vimtex_view_method\6g\bvim\0", "config", "vimtex")
+time([[Config for vimtex]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
