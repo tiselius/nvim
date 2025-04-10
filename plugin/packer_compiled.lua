@@ -177,6 +177,12 @@ _G.packer_plugins = {
     path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  rustaceanvim = {
+    config = { "\27LJ\2\n\v\0\0\1\0\0\0\1K\0\1\0\0" },
+    loaded = true,
+    path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/rustaceanvim",
+    url = "https://github.com/mrcjkb/rustaceanvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -198,7 +204,7 @@ _G.packer_plugins = {
     url = "https://github.com/hrsh7th/vim-vsnip"
   },
   vimtex = {
-    config = { "\27LJ\2\nó\1\0\0\3\0\n\0\0156\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0'\1\5\0=\1\4\0006\0\0\0009\0\1\0005\1\b\0005\2\a\0=\2\t\1=\1\6\0K\0\1\0\foptions\1\0\1\foptions\0\1\5\0\0\18-shell-escape\21-file-line-error\15-synctex=1\29-interaction=nonstopmode\28vimtex_compiler_latexmk\flatexml\27vimtex_compiler_method\tskim\23vimtex_view_method\6g\bvim\0" },
+    config = { "\27LJ\2\nÄ\1\0\0\3\0\b\0\v6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0005\1\6\0005\2\5\0=\2\a\1=\1\4\0K\0\1\0\foptions\1\0\1\foptions\0\1\5\0\0\18-shell-escape\21-file-line-error\15-synctex=1\29-interaction=nonstopmode\28vimtex_compiler_latexmk\tskim\23vimtex_view_method\6g\bvim\0" },
     loaded = true,
     path = "/Users/arontiselius/.local/share/nvim/site/pack/packer/start/vimtex",
     url = "https://github.com/lervag/vimtex"
@@ -208,8 +214,12 @@ _G.packer_plugins = {
 time([[Defining packer_plugins]], false)
 -- Config for: vimtex
 time([[Config for vimtex]], true)
-try_loadstring("\27LJ\2\nó\1\0\0\3\0\n\0\0156\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0'\1\5\0=\1\4\0006\0\0\0009\0\1\0005\1\b\0005\2\a\0=\2\t\1=\1\6\0K\0\1\0\foptions\1\0\1\foptions\0\1\5\0\0\18-shell-escape\21-file-line-error\15-synctex=1\29-interaction=nonstopmode\28vimtex_compiler_latexmk\flatexml\27vimtex_compiler_method\tskim\23vimtex_view_method\6g\bvim\0", "config", "vimtex")
+try_loadstring("\27LJ\2\nÄ\1\0\0\3\0\b\0\v6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0005\1\6\0005\2\5\0=\2\a\1=\1\4\0K\0\1\0\foptions\1\0\1\foptions\0\1\5\0\0\18-shell-escape\21-file-line-error\15-synctex=1\29-interaction=nonstopmode\28vimtex_compiler_latexmk\tskim\23vimtex_view_method\6g\bvim\0", "config", "vimtex")
 time([[Config for vimtex]], false)
+-- Config for: rustaceanvim
+time([[Config for rustaceanvim]], true)
+try_loadstring("\27LJ\2\n\v\0\0\1\0\0\0\1K\0\1\0\0", "config", "rustaceanvim")
+time([[Config for rustaceanvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads

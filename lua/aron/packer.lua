@@ -101,6 +101,13 @@ return require('packer').startup(function(use)
         -- install jsregexp (optional!:).
         run = "make install_jsregexp"
 })
+use {
+  'mrcjkb/rustaceanvim',
+  tag = 'v5.*',  -- Equivalent to version = '^5'
+  config = function()
+    -- Optional: Add additional configuration here if needed
+  end
+}
 
 end)
 

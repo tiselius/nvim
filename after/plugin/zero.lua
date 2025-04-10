@@ -3,8 +3,10 @@ local lsp = require('lsp-zero').preset({})
 lsp.ensure_installed({
     'clangd',      -- C
     'jdtls',       -- Java
-    'rust_analyzer', -- Rust
-    'texlab'
+    'texlab',
+    'eslint-lsp',
+    'prettier',
+    'oxlint'
 })
 
 local lspconfig = require('lspconfig')
