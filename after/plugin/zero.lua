@@ -4,9 +4,7 @@ lsp.ensure_installed({
     'clangd',      -- C
     'jdtls',       -- Java
     'texlab',
-    'eslint-lsp',
-    'prettier',
-    'oxlint'
+    'ts_ls',
 })
 
 local lspconfig = require('lspconfig')
@@ -31,38 +29,81 @@ lsp.configure('clangd', {
     capabilities = require('cmp_nvim_lsp').default_capabilities(),
 })
 
--- (Optional) Keybindings for LSP actions
 lsp.on_attach(function(client, bufnr)
+    local wk = require("which-key")
     local opts = { buffer = bufnr, remap = false }
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)    -- Go to definition
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)          -- Show hover info
-    vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-    vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)  -- Next diagnostic
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)  -- Prev diagnostic
-    vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
+
+    -- Optional: remove old vim.keymap.set bindings if you want all through which-key
+
+    -- Register keybindings with descriptions for which-key
+    wk.register({
+        ["<leader>l"] = {
+            name = "+LSP",
+            d = { vim.lsp.buf.definition, "Go to definition" },
+            r = { vim.lsp.buf.rename, "Rename symbol" },
+            a = { vim.lsp.buf.code_action, "Code action" },
+            h = { vim.lsp.buf.hover, "Hover info" },
+            s = { vim.lsp.buf.signature_help, "Signature help" },
+            f = { function() vim.lsp.buf.format { async = true } end, "Format document" },
+        },
+        ["K"] = { vim.lsp.buf.hover, "Hover info" },
+        ["gd"] = { vim.lsp.buf.definition, "Go to definition" },
+        ["gr"] = { vim.lsp.buf.references, "Find references" },
+        ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
+        ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
+        ["<leader>vd"] = { vim.diagnostic.open_float, "Line diagnostics" },
+    }, { buffer = bufnr })
 end)
 
--- Enable and configure autocompletion
 local cmp = require('cmp')
+local luasnip = require('luasnip')
+
 lsp.setup_nvim_cmp({
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
+    },
     mapping = cmp.mapping.preset.insert({
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Enter to confirm
-        ['<Tab>'] = cmp.mapping.select_next_item(),
-        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' }, -- Suggestions from the language server
-        { name = 'buffer' },   -- Suggestions from the current file (for custom functions)
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = 'buffer' },
     }),
 })
 
 -- (Optional) Customize diagnostics
 vim.diagnostic.config({
     virtual_text = true, -- Show inline diagnostics
+})
+
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+lsp.configure('ts_ls', {
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    -- optional settings
 })
 
 lsp.setup()

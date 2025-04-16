@@ -31,4 +31,3 @@ vim.api.nvim_create_autocmd("FileType", {
 
 local api = vim.api
 
-

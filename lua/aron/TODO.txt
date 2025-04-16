@@ -1,0 +1,4 @@
+flytta alla LSP keybinds till space l 
+https://lsp-zero.netlify.app/docs/language-server-configuration.html
+lägg till lsp keybinds 
+ta bort vimtex mappings
