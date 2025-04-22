@@ -8,6 +8,13 @@ return require('packer').startup(function(use)
 		'nvim-telescope/telescope.nvim', tag = '0.1.8',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
+    use {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make',
+        config = function()
+            require('telescope').load_extension('fzf')
+        end
+    }
 
 	-- Themes and aesthetics
 	use 'morhetz/gruvbox'
@@ -125,5 +132,25 @@ use {
     require("luasnip.loaders.from_vscode").lazy_load()
   end
 }
+
+use("echasnovski/mini.files")
+
+--Sätter automatiskt root av projektet.
+use {
+  "ahmedkhalf/project.nvim",
+  config = function()
+    require("project_nvim").setup {
+          detection_methods = { "pattern", "lsp"},
+    }
+    require('telescope').load_extension('projects')
+    --require'telescope'.extensions.projects.projects{}
+  end
+}
+
+use {
+  "goolord/alpha-nvim"
+}
+
+------
 end)
 

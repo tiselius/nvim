@@ -3,17 +3,21 @@ local wk = require("which-key")
 -- General Keymaps
 vim.g.mapleader = " "  -- Set space as leader key
 
--- Open file explorer (Ex mode)
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open file explorer (Ex mode)" })
+vim.keymap.set("n", "<leader>pv", function()
+  local path = vim.api.nvim_buf_get_name(0)
+  require("mini.files").open(path ~= "" and path or nil, true)
+end, { desc = "File explorer" })
+
+vim.keymap.set("n", "<leader>pV", vim.cmd.Ex, { desc = "Vim RC" })
 
 -- Move selected lines in visual mode (J: down, K: up)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
 
 -- Yank to system clipboard (y: normal mode, Y: whole line)
-vim.keymap.set("n", "<leader>y", "\"+y", { desc = "Yank to system clipboard (normal mode)" })
-vim.keymap.set("v", "<leader>y", "\"+y", { desc = "Yank to system clipboard (visual mode)" })
-vim.keymap.set("n", "<leader>Y", "\"+Y", { desc = "Yank entire line to system clipboard" })
+vim.keymap.set("n", "<leader>y", "\"+y", { desc = "Yank to system" })
+vim.keymap.set("v", "<leader>y", "\"+y", { desc = "Yank to system" })
+vim.keymap.set("n", "<leader>Y", "\"+Y", { desc = "Yank entire line to system" })
 
 -- Clear search highlight
 vim.keymap.set('n', '<leader>n', ':noh<CR>', { desc = 'Clear search highlight' })
@@ -23,11 +27,6 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 -- Escape from terminal mode to normal mode
 vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true, desc = "Escape from terminal mode" })
-
--- LaTeX-related commands (with VimTeX plugin)
-vim.api.nvim_set_keymap('n', '<leader>lc', ':VimtexCompile<CR>', { noremap = true, silent = true, desc = "Compile LaTeX document" })  -- Compile LaTeX
-vim.api.nvim_set_keymap('n', '<leader>lv', ':VimtexView<CR>', { noremap = true, silent = true, desc = "View LaTeX PDF" })     -- View LaTeX PDF
-vim.api.nvim_set_keymap('n', '<leader>lk', ':VimtexClean<CR>', { noremap = true, silent = true, desc = "Clean LaTeX auxiliary files" }) -- Clean LaTeX
 
 -- Indentation in visual mode (Tab: indent, Shift+Tab: unindent)
 vim.api.nvim_set_keymap('v', '<Tab>', '>gv', { noremap = true, silent = true, desc = "Indent selected lines" })
@@ -40,9 +39,24 @@ vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format document"
 vim.keymap.set("n", "<leader>lh", vim.lsp.buf.hover, { desc = "Hover information" })
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename symbol" })
 vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "Signature help" })
+vim.keymap.set("n", "<leader>lp", vim.diagnostic.goto_prev, { desc = "Previous problem" })
+vim.keymap.set("n", "<leader>ln", vim.diagnostic.goto_next, { desc = "Next problem" })
 
--- Diagnostics Navigation (remapped to <leader>dn and <leader>dp)
-vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
-vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+-- Comments
+-- Toggle comment line
+vim.keymap.set('n', '<leader>7', function()
+  return require('vim._comment').operator() .. '_'
+end, { expr = true, desc = 'Toggle comment line' })
+
+-- Visual mode comment (for selected block)
+vim.keymap.set('v', '<leader>7', function()
+  return require('vim._comment').operator()
+end, { expr = true, desc = 'Toggle comment in visual mode' })
+--
+-- Operator-pending mode (for gc + movement)
+vim.keymap.set({ 'n', 'x' }, '<leader>c', function()
+  return require('vim._comment').operator()
+end, { expr = true, desc = 'Toggle comment' })
+
 
 

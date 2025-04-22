@@ -21,13 +21,13 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "netrw",
-  callback = function()
-    vim.wo.number = true           -- Enable line numbers
-    vim.wo.relativenumber = true   -- Enable relative numbers
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "netrw",
+--   callback = function()
+--     vim.wo.number = true           -- Enable line numbers
+--     vim.wo.relativenumber = true   -- Enable relative numbers
+--   end,
+-- })
 
 local api = vim.api
 
