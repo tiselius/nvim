@@ -58,5 +58,14 @@ vim.keymap.set({ 'n', 'x' }, '<leader>c', function()
   return require('vim._comment').operator()
 end, { expr = true, desc = 'Toggle comment' })
 
+-- Buffers
+vim.keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<leader>bp", ":bprev<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "Delete buffer" })
+vim.keymap.set("n", "<leader>bd!", ":bx<CR>", { desc = "Delete buffer forcefully" })
+vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<CR>")
+vim.keymap.set("n", "<leader>pp", "<cmd>Telescope projects<CR>" )
+
+
 
 

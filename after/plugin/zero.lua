@@ -1,13 +1,36 @@
-local lsp = require('lsp-zero').preset({})
--- (Optional) Configure LSP for specific languages
-lsp.ensure_installed({
-    'clangd',      -- C
-    'jdtls',       -- Java
-    'texlab',
-    'ts_ls',
-})
-
+local lspzero = require('lsp-zero')
 local lspconfig = require('lspconfig')
+-- (Optional) Configure LSP for specific languages
+require('mason').setup({})
+
+require('mason-lspconfig').setup({
+    ensure_installed = {
+        'clangd',
+        'jdtls',
+        'texlab',
+        'ts_ls',
+        'pylsp',
+        -- 'ada_ls',
+    },
+handlers = {
+  lspzero.default_setup,
+
+  -- override clangd setup to avoid duplicate
+  clangd = function()
+    lspzero.configure('clangd', {
+      cmd = { "clangd", "--header-insertion=never" },
+      capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    })
+  end,
+
+  -- keep your Lua override
+  lua_ls = function()
+    require('lspconfig').lua_ls.setup(lspzero.nvim_lua_ls())
+  end,
+}
+
+
+})
 
 -- Nu kan du använda lspconfig för att konfigurera LSP
 lspconfig.pylsp.setup {
@@ -23,13 +46,8 @@ lspconfig.pylsp.setup {
         },
     },
 }
--- Customize clangd setup
-lsp.configure('clangd', {
-    cmd = { "clangd", "--header-insertion=never" }, -- Prevent auto-adding headers
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
-})
 
-lsp.on_attach(function(client, bufnr)
+lspzero.on_attach(function(client, bufnr)
     local wk = require("which-key")
     local opts = { buffer = bufnr, remap = false }
 
@@ -58,7 +76,7 @@ end)
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
-lsp.setup_nvim_cmp({
+cmp.setup({
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -86,11 +104,11 @@ lsp.setup_nvim_cmp({
             end
         end, { "i", "s" }),
     }),
-    sources = cmp.config.sources({
+    sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'buffer' },
-    }),
+    },
 })
 
 -- (Optional) Customize diagnostics
@@ -101,10 +119,10 @@ vim.diagnostic.config({
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-lsp.configure('ts_ls', {
+lspzero.configure('ts_ls', {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     -- optional settings
 })
 
-lsp.setup()
+lspzero.setup()
 

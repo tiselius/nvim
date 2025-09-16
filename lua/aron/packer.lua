@@ -15,9 +15,9 @@ return require('packer').startup(function(use)
             require('telescope').load_extension('fzf')
         end
     }
-
+    
 	-- Themes and aesthetics
-	use 'morhetz/gruvbox'
+    use { "catppuccin/nvim", as = "catppuccin" }
 
 	-- Treesitter
 	use('nvim-treesitter/nvim-treesitter', {run =  ':TSUpdate'})
@@ -47,7 +47,7 @@ return require('packer').startup(function(use)
 	-- LSP + Autocompletion
 	use {
 	  'VonHeikemen/lsp-zero.nvim',
-	  branch = 'v2.x',
+	  branch = 'v3.x',
 	  requires = {
 	    -- LSP Support
 	    {'neovim/nvim-lspconfig'},
@@ -69,7 +69,11 @@ return require('packer').startup(function(use)
 	    'nvimdev/lspsaga.nvim',
 	    after = 'nvim-lspconfig',
 	    config = function()
-	        require('lspsaga').setup({})
+	        require('lspsaga').setup({
+                lightbulb = {
+                    enable = false,  -- turns off that lightbulb entirely
+                }
+            })
 	    end
 	}
 
@@ -150,7 +154,10 @@ use {
 use {
   "goolord/alpha-nvim"
 }
-
+use {
+  'nvim-lualine/lualine.nvim',
+  requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+}
 ------
 end)
 

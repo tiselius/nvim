@@ -7,7 +7,7 @@ wk.add({
   { "<leader>c", desc = "Comment + mov", icon = { icon = "󰅺", color = "red" } },
   { "<leader>pv", desc = "File explorer", icon = { icon = "", color = "purple" } },
   { "<leader>pV", desc = "Vim RC", icon = { icon = "", color = "azure" } },
-  { "<leader>pb", desc = "Open buffers", icon = { icon = "", color = "yellow" } }
+  { "<leader>pp", desc = "Projects", icon = { icon = "", color = "purple" } },
 })
 
 wk.add({
@@ -36,5 +36,14 @@ wk.add({
   { "\"q", desc = "idk", icon = { icon = "", color = "orange" } },
   { "\"t", desc = "idk", icon = { icon = "", color = "orange" } },
   { "\"w", desc = "idk", icon = { icon = "", color = "orange" } },
+})
+
+wk.add({
+  { "<leader>b", group = "Buffers", icon = { icon = "", color = "blue" } },
+  { "<leader>bn", group = "Next buffer", icon = { icon = "", color = "green" } },
+  { "<leader>bp", group = "Previous buffer", icon = { icon = "", color = "green" } },
+  { "<leader>bd", group = "Delete buffer", icon = { icon = "󰆴", color = "red" } },
+  { "<leader>bx", group = "Delete buffer forcefully", icon = { icon = "󰆴", color = "red" } },
+  { "<leader>bb", group = "pick Buffer", icon = { icon = "", color = "blue" } },
 })
 
